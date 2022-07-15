@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+    <!--================register Area =================-->
+    <body class="text-center">
+        <div class="container">
+            <br/>
+            <h1 class="h3 mb-3 fw-normal">Please register</h1>
+            <br/>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                {{ form.email.label() }}
+                {{ form.email(class="form-control", placeholder="Email") }}
+
+                {{ form.password.label() }}
+                {{ form.password(class="form-control", placeholder="Password") }}
+
+                {{ form.confirm.label() }}
+                {{ form.confirm(class="form-control", placeholder="Confirm Password") }}
+                <br>
+                {{ form.submit(class="w-100 btn_3 btn-primary") }}
+            </form>
+        </div>
+    </body>
+    <!--================register end =================-->
+{% endblock %}
