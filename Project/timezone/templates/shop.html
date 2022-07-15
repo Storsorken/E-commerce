@@ -9,9 +9,9 @@
                     <!--Nav Button  -->
                     <nav>                                                      
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">NewestArrivals</a>
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Newest Arrivals</a>
                             <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"> Price high to low</a>
-                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"> Most populer </a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"> Most popular </a>
                         </div>
                     </nav>
                     <!--End Nav Button  -->
@@ -38,6 +38,26 @@
                 <!-- card one -->
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="row">
+                        {% for watch in watches %}
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                <div class="single-popular-items mb-50 text-center">
+                                    <div class="popular-img">
+                                        
+                                        <img src="{{ ".." ~ url_for('static', filename=watch.image_url ~".png") }}" alt="">
+                                        <div class="img-cap">
+                                            <span>Add to cart</span>
+                                        </div>
+                                        <div class="favorit-items">
+                                            <span class="flaticon-heart"></span>
+                                        </div>
+                                    </div>
+                                    <div class="popular-caption">
+                                        <h3><a href="product_details.html">{{ watch.name }}</a></h3>
+                                        <span>$ {{ watch.price }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
                             <div class="single-popular-items mb-50 text-center">
                                 <div class="popular-img">
@@ -51,7 +71,7 @@
                                 </div>
                                 <div class="popular-caption">
                                     <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
-                                    <span>$ 45,743</span>
+                                    <span>$ 45,1</span>
                                 </div>
                             </div>
                         </div>
@@ -110,6 +130,58 @@
                             <div class="single-popular-items mb-50 text-center">
                                 <div class="popular-img">
                                     <img src="../static/assets/img/gallery/popular5.png" alt="">
+                                    <div class="img-cap">
+                                        <span>Add to cart</span>
+                                    </div>
+                                    <div class="favorit-items">
+                                        <span class="flaticon-heart"></span>
+                                    </div>
+                                </div>
+                                <div class="popular-caption">
+                                    <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                    <span>$ 45,743</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-popular-items mb-50 text-center">
+                                <div class="popular-img">
+                                    <img src="../static/assets/img/gallery/popular6.png" alt="">
+                                    <div class="img-cap">
+                                        <span>Add to cart</span>
+                                    </div>
+                                    <div class="favorit-items">
+                                        <span class="flaticon-heart"></span>
+                                    </div>
+                                </div>
+                                <div class="popular-caption">
+                                    <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                    <span>$ 45,743</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- testing --> 
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-popular-items mb-50 text-center">
+                                <div class="popular-img">
+                                    <img src="../static/assets/img/gallery/popular6.png" alt="">
+                                    <div class="img-cap">
+                                        <span>Add to cart</span>
+                                    </div>
+                                    <div class="favorit-items">
+                                        <span class="flaticon-heart"></span>
+                                    </div>
+                                </div>
+                                <div class="popular-caption">
+                                    <h3><a href="product_details.html">Thermo Ball Etip Gloves</a></h3>
+                                    <span>$ 45,743</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-popular-items mb-50 text-center">
+                                <div class="popular-img">
+                                    <img src="../static/assets/img/gallery/popular6.png" alt="">
                                     <div class="img-cap">
                                         <span>Add to cart</span>
                                     </div>
