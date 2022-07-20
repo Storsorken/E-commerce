@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% block extra_scripts %}
+<script src="../static/assets/js/cart/shop.js" defer></script>
+{% endblock %}
+
 {% block main_content %}
     <!-- Latest Products Start -->
     <section class="popular-items latest-padding">
@@ -44,7 +48,7 @@
                                     <div class="popular-img">
                                         
                                         <img src="{{ ".." ~ url_for('static', filename=watch.image_url ~".png") }}" alt="">
-                                        <div class="img-cap">
+                                        <div class="img-cap" id="watch-{{ watch.id }}">
                                             <span>Add to cart</span>
                                         </div>
                                         <div class="favorit-items">
