@@ -1,6 +1,6 @@
 from timezone.models import User
 from timezone import app, db
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for, jsonify
 from timezone.forms import RegistrationForm, LoginForm
 from flask_login import login_required, login_user, logout_user
 from timezone.models import Watch
@@ -94,4 +94,17 @@ def product_details():
 def shop():
     watches = Watch.query.all()
     return render_template('shop.html', watches=watches)
+
+
+@app.route('/items/<int:watch_id>')
+def item(watch_id):
+    watch = Watch.query.get_or_404(watch_id)
+    watch_dict = {
+        'id': watch.id,
+        'name': watch.name,
+        'price': watch.price,
+        'description': watch.description,
+        'image_url': watch.image_url
+    }
+    return jsonify(watch_dict)
 
