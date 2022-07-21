@@ -1,8 +1,8 @@
 from timezone.models import User
 from timezone import app, db
 from flask import flash, redirect, render_template, request, url_for, jsonify
-from timezone.forms import RegistrationForm, LoginForm
-from flask_login import login_required, login_user, logout_user
+from timezone.forms import RegistrationForm, LoginForm, LogoutForm
+from flask_login import login_required, login_user, logout_user, current_user
 from timezone.models import Watch
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
@@ -40,6 +40,8 @@ def confirmation():
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
+    if current_user.is_authenticated:
+        return(redirect(url_for('logout')))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=request.form['email']).first()
@@ -78,11 +80,15 @@ def register():
     return render_template('register.html', hero_area=True, form=form)
 
 
-@app.route('/logout')
+@app.route('/logout', methods=["GET", "POST"])
 def logout():
-    logout_user()
-    return redirect(url_for('index'))
+    form = LogoutForm()
+    if form.validate_on_submit():
+        logout_user()
+        return redirect(url_for('login'))
 
+    return render_template('logout.html', form=form)
+    
 
 @app.route('/product_details')
 def product_details():

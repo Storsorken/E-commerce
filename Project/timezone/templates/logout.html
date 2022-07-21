@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+<div class="text-center">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3>You are logged in using email {{ current_user.email }}</h3>
+    <form action="{{ url_for('logout') }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit(class="w-20 btn_3 btn-primary") }}
+    </form>
+</div>
+{% endblock %}
