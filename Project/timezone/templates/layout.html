@@ -65,12 +65,6 @@
 
 </head>
 <body>
-    {% if current_user.is_authenticated %}
-        <h1>Logged in</h1>
-    {% else %}
-        <h1>Not logged in</h1>
-    {% endif %}
-    
     {% if preloader %}
         <!--? Preloader Start -->
         <div id="preloader-active">
