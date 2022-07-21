@@ -15,27 +15,27 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', hero_area=True)
 
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html')
+    return render_template('cart.html', hero_area=True)
 
 
 @app.route('/checkout')
 def checkout():
-    return render_template('checkout.html')
+    return render_template('checkout.html', hero_area=True)
 
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html', hero_area=True)
 
 
 @app.route('/confirmation')
 def confirmation():
-    return render_template('confirmation.html')
+    return render_template('confirmation.html', hero_area=True)
 
 
 @app.route('/login', methods=('GET', 'POST'))
@@ -55,7 +55,7 @@ def login():
             print(err_msg)
             flash(err_msg)
 
-    return render_template('login.html', form=form)
+    return render_template('login.html', hero_area=True, form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -75,7 +75,7 @@ def register():
             print(err_msg)
             flash(err_msg)
 
-    return render_template('register.html', form=form)
+    return render_template('register.html', hero_area=True, form=form)
 
 
 @app.route('/logout')
@@ -86,14 +86,14 @@ def logout():
 
 @app.route('/product_details')
 def product_details():
-    return render_template('product_details.html')
+    return render_template('product_details.html', hero_area=True)
 
 
 @app.route('/shop')
 @login_required
 def shop():
     watches = Watch.query.all()
-    return render_template('shop.html', watches=watches)
+    return render_template('shop.html', hero_area=True, watches=watches)
 
 
 @app.route('/items/<int:watch_id>')
