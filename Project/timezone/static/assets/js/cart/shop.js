@@ -1,6 +1,6 @@
-let addBtns = document.getElementsByClassName('img-cap');
 let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
 
+let addBtns = document.getElementsByClassName('img-cap');
 for (btn of addBtns) {
     btn.addEventListener('click', addToCartBtn);
 }
