@@ -13,7 +13,7 @@ function fillTableWithCartItems() {
                     <td>
                         <div class="media">
                             <div class="d-flex">
-                                <img src="../static/assets/img/gallery/shop/${watch.id}.png" />
+                                <img src="../static/${watch.image_url}.png" />
                             </div>
                             <div class="media-body">
                                 <p>${watch.name}</p>
