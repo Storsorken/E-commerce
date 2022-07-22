@@ -2,7 +2,7 @@ let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart'
 let tableBody = document.getElementById('cart-table').getElementsByTagName('tbody')[0];
 
 function fillTableWithCartItems() {
-    for (item of cart) {
+    for (let item of cart) {
         // request item data from server
         fetch(`/items/${item.id}`)
             .then(response => response.json())
@@ -25,9 +25,9 @@ function fillTableWithCartItems() {
                     </td>
                     <td>
                         <div class="product_count">
-                            <span class="input-number-decrement"> <i class="ti-minus"></i></span>
+                            <span onclick="decrement_quantity(${watch.id})" class="input-number-decrement"> <i class="ti-minus"></i></span>
                                 <input class="input-number" type="text" value="${item.quantity}" min="0" max="10">
-                            <span class="input-number-increment"> <i class="ti-plus"></i></span>
+                            <span onclick="increment_quantity(${watch.id})" class="input-number-increment"> <i class="ti-plus"></i></span>
                         </div
                     </td>
                     <td>
@@ -38,6 +38,33 @@ function fillTableWithCartItems() {
             }
         );
     }
+}
+
+function decrement_quantity(id) {
+    let item = cart.find(item => item.id == id);
+    if (item.quantity > 1) {
+        item.quantity--;
+        // update input value
+        document.getElementById(`cart-item-${id}`).getElementsByClassName('input-number')[0].value = item.quantity;
+    } else {
+        cart.splice(cart.indexOf(item), 1);
+        let row = document.getElementById(`cart-item-${id}`);
+        row.remove();
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function increment_quantity(id) {
+    for (let item of cart) {
+        console.log(id, item.id);
+        if (item.id == id) {
+            console.log('found item');
+            item.quantity++;
+            // update input value
+            document.getElementById(`cart-item-${id}`).getElementsByClassName('input-number')[0].value = item.quantity;
+        }
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 fillTableWithCartItems();
