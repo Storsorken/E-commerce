@@ -22,6 +22,20 @@ class Watch(db.Model):
     image_url = db.Column(db.String(length=100), nullable=False)
     purchases = db.relationship('Purchases', backref='watch', lazy=True)
 
+# class Watch(db.Model):
+#     id = db.Column(db.Integer(), primary_key=True)
+#     name = db.Column(db.String(length=100), nullable=False)
+#     description = db.Column(db.String(length=100), nullable=False)
+#     price = db.Column(db.Float(), nullable=False)
+#     case_diameter = db.Column(db.Float(), nullable=False)
+#     crystal = db.Column(db.String(length=100), nullable=False)
+#     water_resistance = db.Column(db.Integer(), nullable=False) #m
+#     movement = db.Column(db.String(length=100), nullable=False)
+#     case_thickness = db.Column(db.Float(), nullable=False) #mm
+#     lugg_width = db.Column(db.Float(), nullable=False)
+#     image_url = db.Column(db.String(length=100), nullable=False)
+#     purchases = db.relationship('Purchases', backref='watch', lazy=True)
+
 
 class Purchases(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
