@@ -15,27 +15,27 @@ def index():
 
 @app.route('/about')
 def about():
-    return render_template('about.html', hero_area=True)
+    return render_template('about.html')
 
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html', hero_area=True)
+    return render_template('cart.html')
 
 
 @app.route('/checkout')
 def checkout():
-    return render_template('checkout.html', hero_area=True)
+    return render_template('checkout.html')
 
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html', hero_area=True)
+    return render_template('contact.html')
 
 
 @app.route('/confirmation')
 def confirmation():
-    return render_template('confirmation.html', hero_area=True)
+    return render_template('confirmation.html')
 
 
 @app.route('/login', methods=('GET', 'POST'))
@@ -57,7 +57,7 @@ def login():
             print(err_msg)
             flash(err_msg)
 
-    return render_template('login.html', hero_area=True, form=form)
+    return render_template('login.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -77,7 +77,7 @@ def register():
             print(err_msg)
             flash(err_msg)
 
-    return render_template('register.html', hero_area=True, form=form)
+    return render_template('register.html', form=form)
 
 
 @app.route('/logout', methods=["GET", "POST"])
@@ -92,7 +92,7 @@ def logout():
 
 @app.route('/product_details')
 def product_details():
-    return render_template('product_details.html', hero_area=True)
+    return render_template('product_details.html')
 
 
 @app.route('/shop')
