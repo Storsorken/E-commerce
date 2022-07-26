@@ -31,16 +31,16 @@ function fillTableWithCartItems() {
                         </div
                     </td>
                     <td>
-                        <h5>$${watch.price * item.quantity}</h5>
+                        <h5>$${Math.round(watch.price * item.quantity * 100)/100}</h5>
                     </td>
                 `;
                 tableBody.prepend(row);
                 // update total cart price incrementally for each loaded item
                 let prevPrice = Number(document.getElementById('total_price').innerHTML.substring(1));
-                document.getElementById('total_price').innerHTML = `$${prevPrice + watch.price * item.quantity}`;
+                document.getElementById('total_price').innerHTML = `$${Math.round((prevPrice + watch.price * item.quantity)*100)/100}`;
             }
         );
-    }
+    }    
 }
 
 function decrement_quantity(id) {
@@ -80,7 +80,7 @@ function update_total_cart_price() {
         let item_price = Number(document.getElementById(`cart-item-${item.id}`).getElementsByTagName('h5')[0].innerHTML.substring(1));
         total_price += item_price * item.quantity;
     }
-    document.getElementById('total_price').innerHTML = `$${total_price}`;
+    document.getElementById('total_price').innerHTML = `$${Math.round(total_price*100)/100}`;
 }
 
 fillTableWithCartItems();
