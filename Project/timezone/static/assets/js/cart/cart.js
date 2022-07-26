@@ -35,6 +35,9 @@ function fillTableWithCartItems() {
                     </td>
                 `;
                 tableBody.prepend(row);
+                // update total cart price incrementally for each loaded item
+                let prevPrice = Number(document.getElementById('total_price').innerHTML.substring(1));
+                document.getElementById('total_price').innerHTML = `$${prevPrice + watch.price * item.quantity}`;
             }
         );
     }
@@ -46,25 +49,38 @@ function decrement_quantity(id) {
         item.quantity--;
         // update input value
         document.getElementById(`cart-item-${id}`).getElementsByClassName('input-number')[0].value = item.quantity;
+        // update price for this batch of items
+        let item_price = Number(document.getElementById(`cart-item-${id}`).getElementsByTagName('h5')[0].innerHTML.substring(1));
+        document.getElementById(`cart-item-${id}`).getElementsByTagName('h5')[1].innerHTML = `$${item.quantity * item_price}`;
     } else {
         cart.splice(cart.indexOf(item), 1);
         let row = document.getElementById(`cart-item-${id}`);
         row.remove();
     }
     localStorage.setItem('cart', JSON.stringify(cart));
+    update_total_cart_price();
 }
 
 function increment_quantity(id) {
-    for (let item of cart) {
-        console.log(id, item.id);
-        if (item.id == id) {
-            console.log('found item');
-            item.quantity++;
-            // update input value
-            document.getElementById(`cart-item-${id}`).getElementsByClassName('input-number')[0].value = item.quantity;
-        }
-    }
+    let item = cart.find(item => item.id == id);
+    item.quantity++;
+    // update input value
+    document.getElementById(`cart-item-${id}`).getElementsByClassName('input-number')[0].value = item.quantity;
+    // update price for this batch of items
+    let item_price = Number(document.getElementById(`cart-item-${id}`).getElementsByTagName('h5')[0].innerHTML.substring(1));
+    document.getElementById(`cart-item-${id}`).getElementsByTagName('h5')[1].innerHTML = `$${item.quantity * item_price}`;
     localStorage.setItem('cart', JSON.stringify(cart));
+    update_total_cart_price();
+}
+
+// This function is not called right after fillTableWithCartItems() because all items have not been fetched at that point
+function update_total_cart_price() {
+    let total_price = 0;
+    for (let item of cart) {
+        let item_price = Number(document.getElementById(`cart-item-${item.id}`).getElementsByTagName('h5')[0].innerHTML.substring(1));
+        total_price += item_price * item.quantity;
+    }
+    document.getElementById('total_price').innerHTML = `$${total_price}`;
 }
 
 fillTableWithCartItems();
