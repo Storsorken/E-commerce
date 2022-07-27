@@ -1,4 +1,7 @@
 let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+// // store cart in submit form for checkout form
+document.getElementById('cart').value = JSON.stringify(cart);
+
 let tableBody = document.getElementById('cart-table').getElementsByTagName('tbody')[0];
 
 function fillTableWithCartItems() {
@@ -44,7 +47,7 @@ function fillTableWithCartItems() {
 }
 
 function decrement_quantity(id) {
-    let item = cart.find(item => item.id == id);
+    let item = cart.find(item => item.id === id);
     if (item.quantity > 1) {
         item.quantity--;
         // update input value
@@ -58,11 +61,13 @@ function decrement_quantity(id) {
         row.remove();
     }
     localStorage.setItem('cart', JSON.stringify(cart));
+    // store cart in submit form
+    document.getElementById('cart').value = JSON.stringify(cart);
     update_total_cart_price();
 }
 
 function increment_quantity(id) {
-    let item = cart.find(item => item.id == id);
+    let item = cart.find(item => item.id === id);
     item.quantity++;
     // update input value
     document.getElementById(`cart-item-${id}`).getElementsByClassName('input-number')[0].value = item.quantity;
@@ -70,6 +75,8 @@ function increment_quantity(id) {
     let item_price = Number(document.getElementById(`cart-item-${id}`).getElementsByTagName('h5')[0].innerHTML.substring(1));
     document.getElementById(`cart-item-${id}`).getElementsByTagName('h5')[1].innerHTML = `$${item.quantity * item_price}`;
     localStorage.setItem('cart', JSON.stringify(cart));
+    // store cart in submit form
+    document.getElementById('cart').value = JSON.stringify(cart);
     update_total_cart_price();
 }
 

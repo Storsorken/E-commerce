@@ -72,15 +72,18 @@
                                 <option value="4">Select a State</option>
                             </select>
                             <input class="post_code" type="text" placeholder="Postcode/Zipcode" />
-                            <a class="btn_1" href="#">Update Details</a>
+                            <a class="btn_1" href="{{ url_for('shop') }}">Continue Shopping</a>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="checkout_btn_inner float-right">
-            <a class="btn_1" href="{{ url_for('shop') }}">Continue Shopping</a>
-            <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+                <form action="{{ url_for('checkout') }}" method="post">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" name="cart" id="cart" value="">
+                    {{ form.submit(class="btn_1 checkout_btn_1") }}
+                </form>
             </div>
         </div>
         </div>

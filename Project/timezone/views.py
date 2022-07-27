@@ -1,7 +1,8 @@
+import json
 from timezone.models import User
 from timezone import app, db
 from flask import flash, redirect, render_template, request, url_for, jsonify
-from timezone.forms import RegistrationForm, LoginForm, LogoutForm
+from timezone.forms import RegistrationForm, LoginForm, LogoutForm, CheckoutForm
 from flask_login import login_required, login_user, logout_user, current_user
 from timezone.models import Watch
 from werkzeug.security import generate_password_hash
@@ -20,12 +21,28 @@ def about():
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html')
+    form = CheckoutForm()
+    return render_template('cart.html', form=form)
 
 
-@app.route('/checkout')
+@app.route('/checkout', methods=['POST'])
 def checkout():
-    return render_template('checkout.html')
+    form = CheckoutForm()
+    if form.validate_on_submit():
+        cart = request.form['cart']
+        cart = json.loads(cart)
+        if cart == []:
+            flash('Your cart is empty!')
+            return redirect(url_for('cart'))
+
+        cart_items = []
+        for item in cart:
+            watch = Watch.query.get(item['id'])
+            cart_items.append((watch, item['quantity']))
+
+        return render_template('checkout.html', cart_items=cart_items)
+    
+    return redirect(url_for('index'))
 
 
 @app.route('/contact')
