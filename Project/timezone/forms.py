@@ -20,5 +20,7 @@ class LogoutForm(FlaskForm):
     submit = SubmitField("Log out")
 
 
-class CheckoutForm(FlaskForm):
+class CartForm(FlaskForm):
     submit = SubmitField("Proceed to checkout")
+
+

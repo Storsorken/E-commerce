@@ -2,7 +2,7 @@ import json
 from timezone.models import User
 from timezone import app, db
 from flask import flash, redirect, render_template, request, url_for, jsonify
-from timezone.forms import RegistrationForm, LoginForm, LogoutForm, CheckoutForm
+from timezone.forms import RegistrationForm, LoginForm, LogoutForm, CartForm
 from flask_login import login_required, login_user, logout_user, current_user
 from timezone.models import Watch
 from werkzeug.security import generate_password_hash
@@ -21,13 +21,13 @@ def about():
 
 @app.route('/cart')
 def cart():
-    form = CheckoutForm()
+    form = CartForm()
     return render_template('cart.html', form=form)
 
 
 @app.route('/checkout', methods=['POST'])
 def checkout():
-    form = CheckoutForm()
+    form = CartForm()
     if form.validate_on_submit():
         cart = request.form['cart']
         cart = json.loads(cart)
