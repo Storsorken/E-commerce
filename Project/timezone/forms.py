@@ -24,3 +24,14 @@ class CartForm(FlaskForm):
     submit = SubmitField("Proceed to checkout")
 
 
+class CheckoutForm(FlaskForm):
+    first_name = StringField("First name", validators=[DataRequired(), Length(max=100)])
+    last_name = StringField("Last name", validators=[DataRequired(), Length(max=100)])
+    # company name?
+    phone_number = StringField("Phone number", validators=[DataRequired(), Length(max=20)])
+    email = StringField("Email", validators=[DataRequired(), Length(max=150), Email("Invalid email")])
+    country = StringField("Country", validators=[DataRequired()])
+    city = StringField("City", validators=[DataRequired()])
+    address = StringField("Address", validators=[DataRequired()])
+    postal_code = StringField("Postal code", validators=[DataRequired()])
+    submit = SubmitField("Proceed to payment")
