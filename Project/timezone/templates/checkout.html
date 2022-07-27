@@ -128,12 +128,8 @@
                     </li>
                     {% for item in cart_items %}
                         <li>
-                            <a href="#">{{ item[0].name }}
-                                <span class="last"> x {{ item[1] }} 
-                                    {% set s = ("%.2f"|format(item[0].price * item[1]))|string|length %} 
-                                    {% for i in range(10-s) %} 
-                                        &nbsp;
-                                    {% endfor %}  
+                            <a href="#"><strong>(x {{item[1]}})</strong> {{ item[0].name }}
+                                <span class="last">
                                     ${{ "%.2f"|format(item[0].price * item[1]) }}
                                 </span>
                             </a>
