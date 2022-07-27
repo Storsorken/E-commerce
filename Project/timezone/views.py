@@ -35,12 +35,14 @@ def checkout():
             flash('Your cart is empty!')
             return redirect(url_for('cart'))
 
+        total_cost = 0
         cart_items = []
         for item in cart:
             watch = Watch.query.get(item['id'])
             cart_items.append((watch, item['quantity']))
+            total_cost += watch.price * item['quantity']
 
-        return render_template('checkout.html', cart_items=cart_items)
+        return render_template('checkout.html', cart_items=cart_items, total_cost=total_cost)
     
     return redirect(url_for('index'))
 

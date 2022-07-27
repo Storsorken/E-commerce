@@ -126,29 +126,25 @@
                         <span>Total</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">Fresh Blackberry
-                        <span class="middle">x 02</span>
-                        <span class="last">$720.00</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Fresh Tomatoes
-                        <span class="middle">x 02</span>
-                        <span class="last">$720.00</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">Fresh Brocoli
-                        <span class="middle">x 02</span>
-                        <span class="last">$720.00</span>
-                        </a>
-                    </li>
+                    {% for item in cart_items %}
+                        <li>
+                            <a href="#">{{ item[0].name }}
+                                <span class="last"> x {{ item[1] }} 
+                                    {% set s = ("%.2f"|format(item[0].price * item[1]))|string|length %} 
+                                    {% for i in range(10-s) %} 
+                                        &nbsp;
+                                    {% endfor %}  
+                                    ${{ "%.2f"|format(item[0].price * item[1]) }}
+                                </span>
+                            </a>
+                        </li>
+                    {% endfor %}                    
                     </ul>
+
                     <ul class="list list_2">
                     <li>
                         <a href="#">Subtotal
-                        <span>$2160.00</span>
+                        <span>$?</span>
                         </a>
                     </li>
                     <li>
@@ -158,7 +154,7 @@
                     </li>
                     <li>
                         <a href="#">Total
-                        <span>$2210.00</span>
+                        <span>${{ "%.2f"|format(total_cost) }}</span>
                         </a>
                     </li>
                     </ul>
