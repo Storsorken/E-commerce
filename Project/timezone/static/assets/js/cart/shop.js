@@ -6,7 +6,7 @@ for (btn of addBtns) {
 }
 
 function addToCartBtn() {
-    let id = this.id.split('-')[1];
+    let id = Number(this.id.split('-')[1]);
     let item = {
         id: id,
         quantity: 1
