@@ -81,6 +81,10 @@
                             {{ form.postal_code(class="form-control", placeholder="Postal Code/ZIP") }}
                         </div>
                         <div class="col-md-12 form-group">
+                        <div>
+                            <input type="checkbox" id="f-option4" name="selector" />
+                            <label for="f-option3">I've read and accept the terms and conditions</label>
+                        </div>
                         <div class="creat_account">
                             <input type="checkbox" id="f-option2" name="selector" />
                             <label for="f-option2">Create an account?</label>
@@ -95,11 +99,6 @@
                         <textarea class="form-control" name="message" id="message" rows="1"
                             placeholder="Order Notes"></textarea>
                         </div>
-                        <div>
-                            <input type="checkbox" id="f-option4" name="selector" />
-                            <label for="f-option3">I've read and accept the terms and conditions</label>
-                        </div>
-                        <br>
                         <div>
                             {{ form.submit(class="btn_3") }}
                         </div>
