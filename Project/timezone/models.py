@@ -39,10 +39,19 @@ class Watch(db.Model):
 
 class Purchases(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'), nullable=True)
     watch_id = db.Column(db.Integer(), db.ForeignKey('watch.id'), nullable=False)
+    first_name = db.Column(db.String(length=100), nullable=False)
+    last_name = db.Column(db.String(length=100), nullable=False)
+    phone_number = db.Column(db.String(length=20), nullable=False)
+    country = db.Column(db.String(length=100), nullable=False)
+    city = db.Column(db.String(length=100), nullable=False)
+    address = db.Column(db.String(length=100), nullable=False)
     date_purchased = db.Column(db.DateTime(), nullable=False)
     date_returned = db.Column(db.DateTime(), nullable=True)
 
     def __repr__(self):
-        return f"Purchases(id={self.id}, user_id={self.user_id}, watch_id={self.watch_id}, date_purchased={self.date_purchased}, date_returned={self.date_returned})"
+        return f"Purchases(id={self.id}, user_id={self.user_id}, watch_id={self.watch_id}, \
+            date_purchased={self.date_purchased}, date_returned={self.date_returned}), \
+            first_name={self.first_name}, last_name={self.last_name}, phone_number={self.phone_number}, \
+            country={self.country}, city={self.city}, address={self.address})"
