@@ -1,10 +1,11 @@
+import datetime
 import json
 from timezone.models import User
 from timezone import app, db
-from flask import flash, redirect, render_template, request, url_for, jsonify
-from timezone.forms import RegistrationForm, LoginForm, LogoutForm, CartForm
+from flask import flash, redirect, render_template, request, url_for, jsonify, session
+from timezone.forms import RegistrationForm, LoginForm, LogoutForm, CartForm, CheckoutForm
 from flask_login import login_required, login_user, logout_user, current_user
-from timezone.models import Watch
+from timezone.models import Watch, Purchases, User
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
@@ -27,8 +28,12 @@ def cart():
 
 @app.route('/checkout', methods=['POST'])
 def checkout():
-    form = CartForm()
-    if form.validate_on_submit():
+    print(request.form)
+    checkout_form = CheckoutForm()
+    cart_form = CartForm()
+
+    if cart_form.validate_on_submit():
+        print("THIS IS CODE FOR THE CART FORM")
         cart = request.form['cart']
         cart = json.loads(cart)
         if cart == []:
@@ -39,11 +44,41 @@ def checkout():
         cart_items = []
         for item in cart:
             watch = Watch.query.get(item['id'])
-            cart_items.append((watch, item['quantity']))
+            cart_items.append((watch.id, watch.name, watch.price, item['quantity']))
             total_cost += watch.price * item['quantity']
+        session["cart_items"] = cart_items
+        session.modified = True
+        session.permanent = False
 
-        return render_template('checkout.html', cart_items=cart_items, total_cost=total_cost)
+        return render_template('checkout.html', cart_items=cart_items, total_cost=total_cost, form=checkout_form)
     
+    return redirect(url_for('cart'))
+
+
+@app.route('/make_purchase', methods=['POST'])
+def make_purchase():
+    form = CheckoutForm()
+    print(request.form)
+    if form.validate_on_submit():
+        cart_items = session.get("cart_items")
+        curr_time = datetime.datetime.now()
+        userID = current_user.id if current_user.is_authenticated else None
+        for watch in cart_items:
+            purchase = Purchases(user_id=userID, watch_id=watch[0], first_name=form.first_name.data,
+                                last_name=form.last_name.data, phone_number=form.phone_number.data,
+                                country=form.country.data, city=form.city.data, address=form.address.data,
+                                date_purchased=curr_time, date_returned=None)
+            db.session.add(purchase)
+            print("Added purchase")
+        db.session.commit()
+        flash('Thank you! Your order has been placed!')
+        flash('You will recieve a confirmation email shortly')
+        return redirect(url_for('confirmation'))
+
+    # show errors if form is not valid
+    for field, errors in form.errors.items():
+        print(field, errors)
+
     return redirect(url_for('index'))
 
 
