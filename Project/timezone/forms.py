@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, HiddenField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import Length, EqualTo, Email, DataRequired
 
 
@@ -27,10 +27,9 @@ class CartForm(FlaskForm):
 class CheckoutForm(FlaskForm):
     first_name = StringField("First name", validators=[DataRequired(), Length(max=100)])
     last_name = StringField("Last name", validators=[DataRequired(), Length(max=100)])
-    # company name?
     phone_number = StringField("Phone number", validators=[DataRequired(), Length(max=20)])
     email = StringField("Email", validators=[DataRequired(), Length(max=150), Email("Invalid email")])
-    country = StringField("Country", validators=[DataRequired()])
+    country = SelectField("Country", choices=["US", "UK", "Netherlands", "France", "Sweden"], validators=[DataRequired()])
     city = StringField("City", validators=[DataRequired()])
     address = StringField("Address", validators=[DataRequired()])
     postal_code = StringField("Postal code", validators=[DataRequired()])
